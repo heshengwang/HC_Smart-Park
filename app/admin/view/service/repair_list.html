@@ -51,7 +51,14 @@
                                     {/if}
                                 </td>
                                 <td class="hidden-sm hidden-xs">{$v.create_time}</td>
-                                <td height="28">{$v.status}</td>
+                                <!--<td height="28">{$v.status}</td>-->
+                                <td height="28">
+                                    <select name="status" id="status" onchange=changeStatus(this.value,"{$v.id}")>
+                                        {foreach $status_list as $k=>$s}
+                                        <option value="{$k}" {if $v.status eq $s}selected{/if}>{$s}</option>
+                                        {/foreach}
+                                    </select>
+                                </td>
                                 <td>
                                     <div class="action-buttons">
                                         <a class="blue confirm-rst-url-btn" data-info="确定删除吗？"
@@ -79,4 +86,30 @@
         </div>
     </div>
 </div><!-- /.page-content -->
+
+<script>
+    // 进行状态操作
+    function changeStatus(status, listId) {
+        $.ajax({
+            type: 'POST',
+            url:"{:url('admin/Service/repair_handle')}",
+            async : true,
+            data:{
+                status:status,
+                id : listId,
+            },
+            dataType: 'json',
+            success:function (data) {
+                if (data.code==1){
+                    layer.msg('操作成功');
+                }else{
+                    layer.msg('操作失败');
+                }
+            },
+            error:function () {
+                layer.msg('程序异常!');
+            }
+        });
+    }
+</script>
 {/block}

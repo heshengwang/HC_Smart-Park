@@ -91,6 +91,12 @@ class Service extends Base
             ->paginate(config('paginate.list_rows'));
         $show = $list->render();
 
+        $status = [
+            '未处理',
+            '处理中',
+            '已处理',
+        ];
+        $this->assign('status_list', $status);
         $this->assign('page', $show);
         $this->assign('list', $list);
         return $this->fetch();
@@ -140,7 +146,22 @@ class Service extends Base
      */
     public function repair_handle()
     {
-
+        $fields = [
+            'status' => \input('status'),
+            'handler_id' => \session('hid'),
+            'handler_time' => \time(),
+        ];
+        $res = Db::name('ServiceRepair')
+            ->where('id', \input('id'))
+            ->setField($fields);
+        if ($res) {
+            //这里可能需要发送短信通知
+            $res = ['code' => 1, 'msg' => 'OK'];
+            return \json($res);
+        } else {
+            $res = ['code' => 0, 'msg' => 'Fail'];
+            return \json($res);
+        }
     }
 
     /**
@@ -228,7 +249,7 @@ class Service extends Base
     {
         $list = Db::name('ServiceMeetingroomAppoint sma')
             ->join('MemberList ml', 'sma.user_id=ml.member_list_id')
-            ->join('ParkMeetingRoom pmr','sma.meetingroom_id=pmr.id')
+            ->join('ParkMeetingRoom pmr', 'sma.meetingroom_id=pmr.id')
             ->field('sma.*,ml.member_list_username,ml.member_list_tel,pmr.room_number')
             ->order('sma.status,sma.create_time')
             ->paginate(config('paginate.list_rows'));
@@ -249,11 +270,11 @@ class Service extends Base
             ->where('id', 'eq', $id)
             ->value('status');//判断当前状态情况
         if ($status == 1) {
-            $statedata = array('status' => 0,'handler_id'=>\session('hid'));
+            $statedata = array('status' => 0, 'handler_id' => \session('hid'));
             \db('ServiceMeetingroomAppoint')->where('id', 'eq', $id)->setField($statedata);
             $this->success('待处理');
         } else {
-            $statedata = array('status' => 1,'handler_id'=>\session('hid'));
+            $statedata = array('status' => 1, 'handler_id' => \session('hid'));
             \db('ServiceMeetingroomAppoint')->where('id', 'eq', $id)->setField($statedata);
             $this->success('已处理');
         }
