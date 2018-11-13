@@ -82,7 +82,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form class="form-horizontal ajaxForm2" name="member_group_runadd" method="post"
-          action="{:url('admin/Park/building_runadd')}" style="display: contents" >
+          action="" style="display: contents" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,11 +99,11 @@
                     </tr>
                     <tr>
                         <td>企业LOGO</td>
-                        <td><img class="enterprise_list_logo" src="" alt="未上传企业LOGO"></td>
+                        <td><img style="height: 200px" class="enterprise_list_logo" src="" alt="未上传企业LOGO"></td>
                     </tr>
                     <tr>
                         <td>企业营业执照</td>
-                        <td><img class="enterprise_list_license_img" src="" alt="未上传营业执照"></td>
+                        <td><img style="height: 300px" class="enterprise_list_license_img" src="" alt="未上传营业执照"></td>
                     </tr>
                     <tr>
                         <td>统一社会信用代码</td>
@@ -277,10 +277,12 @@
             type:'get',
             dataType:'json',
             success:function(data){
+                var logo_path = data.data.enterprise_list_logo;
+                var license_path = data.data.enterprise_list_license_img;
                 $('.modal-title').text(data.data.enterprise_list_name)
                 $('.enterprise_list_name').text(data.data.enterprise_list_name)
-                $('.enterprise_list_logo').attr("src","data.data.enterprise_list_logo")
-                $('.enterprise_list_license_img').attr("src","data.data.enterprise_list_license_img")
+                $('.enterprise_list_logo').attr("src",logo_path)
+                $('.enterprise_list_license_img').attr("src",license_path)
                 $('.enterprise_list_credit_code').text(data.data.enterprise_list_credit_code)
                 $('.enterprise_list_legal_representative').text(data.data.enterprise_list_legal_representative)
                 $('.enterprise_list_legal_id_number').text(data.data.enterprise_list_legal_id_number)
