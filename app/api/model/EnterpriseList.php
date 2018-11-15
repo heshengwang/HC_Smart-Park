@@ -151,7 +151,7 @@ class EnterpriseList extends Model
             ::with('EntryInfo')
             ->where($where)
             ->order('enterprise_list_addtime')
-            ->page($page, '10')
+            ->page($page, '1000000')
             ->select();
         return \show('200', 'OK', $list);
     }
