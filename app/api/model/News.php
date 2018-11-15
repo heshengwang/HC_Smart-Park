@@ -85,7 +85,7 @@ class News extends Model
         if (!empty($news_img)) {
             return \get_app_imgurl($news_img);
         } else {
-            return 'http://ov7uxfxnm.bkt.clouddn.com/no_news.webp';
+            return 'http://www.hacyy.com/public/img/nonews.png';
         }
     }
 
