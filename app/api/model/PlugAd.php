@@ -68,7 +68,7 @@ class PlugAd extends Model
 
         return $this->where($where)
             ->order('plug_ad_order aes')
-            ->limit(3)
+            ->limit(30000000)
             ->select();
     }
 
@@ -87,7 +87,7 @@ class PlugAd extends Model
         ];
         return $this->where($where)
             ->order('plug_ad_order aes')
-            ->limit(3)
+            ->limit(30000000)
             ->select();
     }
 
@@ -104,7 +104,7 @@ class PlugAd extends Model
         return $this->where($where)
             ->where('plug_ad_open', 'eq', 1)
             ->order('plug_ad_order')
-            ->limit(3)
+            ->limit(300000000)
             ->select();
     }
 }

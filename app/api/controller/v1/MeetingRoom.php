@@ -94,7 +94,7 @@ class MeetingRoom extends Common
             //判断会议室时间和已预订的时间是否冲突
             $time_check = Db::name('ServiceMeetingroomAppoint')
                 ->where('meetingroom_id', 'eq', $room_id)
-                ->where('s_time|e_time', 'between', [$s_time, $e_time-1])
+                ->where('s_time|e_time', 'between', [$s_time, $e_time])
 //                ->where('status','neq',1)
                 ->find();
             if (!empty($time_check)) {
@@ -104,7 +104,7 @@ class MeetingRoom extends Common
                     'meetingroom_id' => $room_id,
                     'user_id' => $u_id,
                     's_time' => $s_time,
-                    'e_time' => $e_time,
+                    'e_time' => $e_time-1,
                     'create_time' => \time(),
                 ];
                 Db::name('ServiceMeetingroomAppoint')->insert($sqldata);
