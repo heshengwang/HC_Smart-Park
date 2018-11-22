@@ -33,9 +33,13 @@ class Bill extends Common
         $limit_time = '-2 weeks';
         //两周内需要续费的企业id/s
         $enterprise_ids = Db::name('EnterpriseBillList')->whereTime('bill_time', $limit_time)->column('enterprise_id');
-        \halt($enterprise_ids);
         if (empty($enterprise_ids)) {
-            return '本次没有新账单!';
+            $data = [
+                'status' => 21,
+                'msg' => '没有新账单',
+                'code' => 200,
+            ];
+            return \json($data);
         } else {
             $length = \count($enterprise_ids);
             for ($i = 0; $i < $length; $i++) {
@@ -124,9 +128,19 @@ class Bill extends Common
                     ->count();
                 if ($rst < 1 && $sqldata['amount'] > 0) {
                     Db::name('EnterpriseBillList')->insert($sqldata);
-                    return \show('1', '出账成功', $sqldata, '200');
+                    $data = [
+                        'status' => 1,
+                        'msg' => '出账成功',
+                        'code' => 200,
+                    ];
+                    return \json($data);
                 } else {
-                    return '本次没有新账单';
+                    $data = [
+                        'status' => 2,
+                        'msg' => '没有新账单',
+                        'code' => 200,
+                    ];
+                    return \json($data);
                 }
             }
         }

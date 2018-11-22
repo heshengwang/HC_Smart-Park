@@ -27,13 +27,19 @@ class Repair extends AuthBase
     public function my_repair()
     {
         $user_id = \input('user_id');
-        $page = \input('page', 1);
-        $model = new ServiceRepair();
-        //已处理的列表
-        $list['list0'] = $model->getRepairList($user_id, $page, ('status=2'));
-        //其他情况的列表
-        $list['list1'] = $model->getRepairList($user_id, $page, ('status!=2'));
-        return \show(1, 'OK', $list, 200);
+//        判断是否绑定企业,如果没有绑定企业则返回空数据,因为APP端是这么写的
+        $enterprise_id = Db::name('MemberList')->where('member_list_id', $user_id)->value('member_list_enterprise');
+        if (empty($enterprise_id)) {
+            \show('1', 'ok', 'null', 200);
+        } else {
+            $page = \input('page', 1);
+            $model = new ServiceRepair();
+            //已处理的列表
+            $list['list0'] = $model->getRepairList($user_id, $page, ('status=2'));
+            //其他情况的列表
+            $list['list1'] = $model->getRepairList($user_id, $page, ('status!=2'));
+            return \show(1, 'OK', $list, 200);
+        }
     }
 
 
