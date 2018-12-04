@@ -14,10 +14,10 @@ return [
     //APP版本信息
     'app_version' => [
         'version' => '1.0.7',
-        'publish_time' => '2018/11/16',
+        'publish_time' => '2018/12/04',
         'size' => '',
         'content' => '',
-        'download_url' => 'http://www.hacyy.com/public/apk/1.0.7_legu_signed_zipalign.apk',
+        'download_url' => 'http://www.hacyy.com/public/apk/1.0.8_legu_signed_zipalign.apk',
         'is_force' => '',
     ],
     //七牛云的上传地址
