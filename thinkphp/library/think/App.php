@@ -551,6 +551,10 @@ class App
 
         // 获取控制器名
         $controller = strip_tags($result[1] ?: $config['default_controller']);
+        //修复框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞
+        if (!preg_match('/^[A-Za-z](\w|\.)*$/', $controller)) {
+            throw new HttpException(404, 'controller not exists:' . $controller);
+        }
         $controller = $convert ? strtolower($controller) : $controller;
 
         // 获取操作名
