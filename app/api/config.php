@@ -13,7 +13,7 @@ return [
     'token_expires_time' => '2592000',
     //APP版本信息
     'app_version' => [
-        'version' => '1.0.7',
+        'version' => '1.0.8',
         'publish_time' => '2018/12/04',
         'size' => '',
         'content' => '',

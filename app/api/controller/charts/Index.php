@@ -103,9 +103,10 @@ class Index extends Common
      */
     public function one_floor_entry()
     {
+        $phase = \input('phase', 2);
         for ($i = 1; $i < 24; $i++) {
             $data[] = Db::name('ParkRoom')
-                ->where('phase', 'eq', 2)//默认为海创二期大楼
+                ->where('phase', 'eq', $phase)//默认为海创二期大楼
                 ->where('floor', 'eq', $i)
                 ->where('status', 'eq', 1)
                 ->count();
