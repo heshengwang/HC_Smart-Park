@@ -143,10 +143,10 @@ $configs = [
         'taglib_end' => '}',
     ],
     'view_replace_str' => [
-        '__ROOT__' => $basename,
-        '__DATA__' => $basename . '/data',
-        '__PUBLIC__' => $basename . '/public',
-        '__UPLOAD__' => $basename . '/data/upload',
+        '__ROOT__' => '',
+        '__DATA__' => '/data',
+        '__PUBLIC__' => '/public',
+        '__UPLOAD__' => '/data/upload',
     ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl' => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',

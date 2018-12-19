@@ -99,9 +99,9 @@ function getEnterpriseBasicInfoByCode($code)
     return Db::name('EnterpriseList')->where('enterprise_list_code', 'eq', $code)->find();
 }
 
-//XLS导出
 
 /**
+ * XLS导出
  * $name  string 文件名称
  * $header array 列标题
  * $dataResult  数组
