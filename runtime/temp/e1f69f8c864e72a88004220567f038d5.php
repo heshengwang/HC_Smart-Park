@@ -1,0 +1,439 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:58:"/www/wwwroot/www.hacyy.com/app/admin/view/login/login.html";i:1540437943;}*/ ?>
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <title>用户登录</title>
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+    <link rel="Bookmark" href="/favicon.ico">
+    <link rel="Shortcut Icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/public/font-awesome/css/font-awesome.min.css"/>
+    <!-- bootstrap & fontawesome必须的css -->
+    <link rel="stylesheet" href="/public/ace/css/bootstrap.min.css"/>
+    <!-- ACE样式-->
+    <link rel="stylesheet" href="/public/ace/css/ace.min.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/public/ace/css/ace-part2.min.css"/>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/public/ace/css/ace-ie.css"/>
+    <![endif]-->
+
+    <!--&lt;!&ndash;修改样式&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="/public/ace/css/change.css">-->
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/public/others/html5shiv.min.js"></script>
+    <script src="/public/others/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body{
+            background-image: url("/public/img/login_bg.png");
+        }
+        .fa{
+            color: #667690;
+        }
+        input[type=email], input[type=url], input[type=search], input[type=tel], input[type=color], input[type=text], input[type=password], input[type=datetime], input[type=datetime-local], input[type=date], input[type=month], input[type=time], input[type=week], input[type=number], textarea{
+            background-color: #f3f6f9;
+            border: 1px solid #d3deec;
+        }
+
+        .login-box{
+            position: absolute;
+            width: 920px;
+            height: 450px;
+            border-radius: 5px;
+            background-color: #fff;
+            top: 50%;
+            left: 50%;
+            margin-top: -225px;
+            margin-left: -440px;
+            padding-top: 20px;
+            padding-left: 20px;
+        }
+
+        .video-box{
+            float: left;
+            height: 410px;
+            width: 500px;
+        }
+
+
+        .user-login{
+            float: left;
+            height: 410px;
+            width: 400px;
+            padding-top: 25px;
+        }
+        .user-login-title {
+            font-size: 18px;
+            color: #496086;
+            font-weight: 600;
+        }
+
+        .user-login-name{
+            width: 350px;
+            margin: 20px auto;
+        }
+        .user-login-icon{
+            border: 1px solid #d3deec;
+            padding: 13px;
+            background-color: #f3f6f9;
+            font-size: 22px;
+            float: left;
+            border-right: none;
+        }
+        .user-login-username{
+            float: left;
+            height: 50px;
+            width: 300px;
+        }
+        .fa-lock:before{
+            padding: 2px;
+        }
+        .user-login-yzm{
+            margin: 20px auto;
+            height: 50px;
+            width: 350px;
+        }
+        .user-login-yzm1{
+            width: 190px;
+            height: 50px;
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        .user-login-rember{
+            display: block;
+            margin: 28px auto;
+            width: 350px;
+        }
+
+        .user-login-log{
+            display: block;
+            width: 350px;
+            height: 60px;
+            margin: 0 auto;
+            background-color: #6b8de8;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 20px;
+            letter-spacing: 12px;
+            border: 2px solid;
+        }
+
+        .login-footer{
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            bottom: 0;;
+            color: #f3f6f9;
+        }
+        .qiniuniu{
+            width: 40px;
+        }
+
+        .login-footer p{
+            margin: 0;
+            padding: 0;
+        }
+        .login-footer a{
+            color: #f3f6f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-box clearfix">
+    <div class="video-box">
+        <video src="/public/video/haccy.mp4" width="100%" height="100%" autoplay loop muted></video>
+    </div>
+    <div class="user-login">
+        <h4 class="user-login-title text-center">
+            淮安留创园后台管理系统
+        </h4>
+        <form class="ajaxForm3" name="runlogin" id="runlogin" method="post" action="<?php echo url('admin/Login/runlogin'); ?>">
+            <fieldset>
+                <div class="user-login-name clearfix">
+                    <i class="ace-icon fa fa-user user-login-icon"></i>
+                    <input type="text" class="user-login-username" name="admin_username" id="admin_username" placeholder="用户名" required/>
+                </div>
+
+                <div class="user-login-name clearfix">
+                    <i class="ace-icon fa fa-lock user-login-icon"></i>
+                    <input type="password" class="user-login-username" name="admin_pwd" id="admin_pwd" placeholder="输入密码" required/>
+                </div>
+
+                <!--开发模式关闭验证码-->
+                
+                <!--极验验证码开关-->
+                <?php if(config('geetest.geetest_on')): ?>
+                <div id="captcha"></div>
+                <div class="space-6"></div>
+                <?php else: ?>
+
+                <div class="user-login-yzm">
+                    <input type="text" class="user-login-yzm1" name="verify" id="verify" placeholder="请输入验证码" required/>
+                    <img class="user-login-yzm2" id="verify_img" src="<?php echo url('admin/Login/verify'); ?>" onClick="this.src='<?php echo url('admin/Login/verify'); ?>'+'?'+Math.random()" style="cursor:pointer;border: 1px solid #d5d5d5;width: 110px;height: 47px;" title="点击获取">
+                </div>
+
+                <!--<label class="block clearfix">-->
+                <!--<span class="block text-center">-->
+                <!--<img class="verify_img" id="verify_img" src="<?php echo url('admin/Login/verify'); ?>" onClick="this.src='<?php echo url('admin/Login/verify'); ?>'+'?'+Math.random()" style="cursor: pointer;width:100%;border: 1px solid #d5d5d5;" title="点击获取">-->
+                <!--</span>-->
+                <!--</label>-->
+                
+                <?php endif; ?>
+
+                <label class="user-login-rember">
+                    <input name="rememberme" type="checkbox" class="ace"/>
+                    <span class="lbl"> 记住信息</span>
+                </label>
+
+                <button  type="submit" class="user-login-log">
+                    <span class="">登录</span>
+                </button>
+
+
+                <!--<button type="submit" class="btn btn-login">-->
+                        <!--<span class="bigger-110">登录</span>-->
+                <!--</button>-->
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="login-footer">
+    <p>Copyright&copy;2015-2018 ALL rights reserved.
+        <a class="link_a" href="#" rel="nofollow" >沪ICP备17024837号-1</a>
+    </p>
+    <p>技术支持:
+        <a href="http://www.qiniuniu.com/" target="_blank" rel="nofollow">
+            <img class="qiniuniu" src="/public/img/qiniuniu.png" />
+        </a>
+    </p>
+</div>
+
+
+
+
+<!-- 基本的js -->
+<!--[if !IE]> -->
+<script src="/public/others/jquery.min-2.2.1.js"></script>
+<!-- <![endif]-->
+<!-- 如果为IE,则引入jq1.12.1 -->
+<!--[if IE]>
+<script src="/public/others/jquery.min-1.12.1.js"></script>
+<![endif]-->
+<!-- jquery.form、layer、yfcmf的js -->
+<script src="/public/others/bootstrap.min.js"></script>
+<script src="/public/others/jquery.form.js"></script>
+<script src="/public/layer/layer_zh-cn.js"></script>
+<script src="/public/others/maxlength.js"></script>
+<script src="/public/yfcmf/yfcmf.js"></script>
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script>
+var handler = function (captchaObj) {
+captchaObj.appendTo("#captcha");
+captchaObj.onSuccess(function () {
+//验证成功执行
+});
+captchaObj.onReady(function () {
+//加载完毕执行
+});
+};
+$.ajax({
+url: "<?php echo geetest_url(); ?>?t=" + (new Date()).getTime(),
+type: "get",
+dataType: "json",
+success: function (data) {
+initGeetest({
+gt: data.gt,
+challenge: data.challenge,
+product: "float",
+offline: !data.success
+}, handler);
+}
+});
+</script>
+<!-- 如果为触屏,则引入jquery.mobile -->
+<script type="text/javascript">
+if ('ontouchstart' in document.documentElement) document.write("<script src='/public/others/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>-->
+    <!--<meta charset="utf-8"/>-->
+    <!--<title>用户登录</title>-->
+    <!--<meta name="description" content="User login page"/>-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>-->
+    <!--<link rel="Bookmark" href="/favicon.ico">-->
+    <!--<link rel="Shortcut Icon" href="/favicon.ico"/>-->
+    <!--&lt;!&ndash; bootstrap & fontawesome必须的css &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="/public/ace/css/bootstrap.min.css"/>-->
+    <!--<link rel="stylesheet" href="/public/font-awesome/css/font-awesome.min.css"/>-->
+    <!--&lt;!&ndash; ACE样式&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="/public/ace/css/ace.min.css"/>-->
+    <!--&lt;!&ndash;[if lte IE 9]>-->
+    <!--<link rel="stylesheet" href="/public/ace/css/ace-part2.min.css"/>-->
+    <!--<![endif]&ndash;&gt;-->
+
+    <!--&lt;!&ndash;[if lte IE 9]>-->
+    <!--<link rel="stylesheet" href="/public/ace/css/ace-ie.css"/>-->
+    <!--<![endif]&ndash;&gt;-->
+    <!--&lt;!&ndash; HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="/public/others/html5shiv.min.js"></script>-->
+    <!--<script src="/public/others/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+<!--</head>-->
+<!--<body class="login-layout blur-login">-->
+<!--<div class="main-container">-->
+    <!--<div class="main-content">-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-10 col-sm-offset-1">-->
+                <!--<div class="login-container">-->
+                    <!--<div class="position-relative">-->
+                        <!--<div id="login-box" class="login-box visible widget-box no-border">-->
+                            <!--<div class="widget-body">-->
+                                <!--<div class="widget-main">-->
+                                    <!--<h4 class="header blue lighter bigger text-center">-->
+                                        <!--<i class="ace-icon fa fa-coffee green"></i>-->
+                                        <!--后台登录-->
+                                    <!--</h4>-->
+
+                                    <!--<div class="space-6"></div>-->
+                                    <!--<form class="ajaxForm3" name="runlogin" id="runlogin" method="post"-->
+                                          <!--action="<?php echo url('admin/Login/runlogin'); ?>">-->
+                                        <!--<fieldset>-->
+                                            <!--<label class="block clearfix">-->
+														<!--<span class="block input-icon input-icon-right">-->
+															<!--<input type="text" class="form-control"-->
+                                                                   <!--name="admin_username" id="admin_username"-->
+                                                                   <!--placeholder="用户名" required/>-->
+															<!--<i class="ace-icon fa fa-user"></i>-->
+														<!--</span>-->
+                                            <!--</label>-->
+
+                                            <!--<label class="block clearfix">-->
+														<!--<span class="block input-icon input-icon-right">-->
+															<!--<input type="password" class="form-control" name="admin_pwd"-->
+                                                                   <!--id="admin_pwd" placeholder="输入密码" required/>-->
+															<!--<i class="ace-icon fa fa-lock"></i>-->
+														<!--</span>-->
+                                            <!--</label>-->
+                                            <!--&lt;!&ndash;开发模式关闭验证码&ndash;&gt;-->
+                                            <!--<?php if(config('app_debug') != 1): ?>-->
+                                            <!--&lt;!&ndash;极验验证码开关&ndash;&gt;-->
+                                            <!--<?php if(config('geetest.geetest_on')): ?>-->
+                                            <!--<div id="captcha"></div>-->
+                                            <!--<div class="space-6"></div>-->
+                                            <!--<?php else: ?>-->
+                                            <!--<label class="block clearfix">-->
+												<!--<span class="block input-icon input-icon-right">-->
+													<!--<input type="text" class="form-control" name="verify" id="verify"-->
+                                                           <!--placeholder="输入验证码" required/>-->
+													<!--<i class="ace-icon fa fa-sort-alpha-asc"></i>-->
+												<!--</span>-->
+                                            <!--</label>-->
+                                            <!--<label class="block clearfix">-->
+												<!--<span class="block text-center">-->
+													<!--<img class="verify_img" id="verify_img"-->
+                                                         <!--src="<?php echo url('admin/Login/verify'); ?>"-->
+                                                         <!--onClick="this.src='<?php echo url('admin/Login/verify'); ?>'+'?'+Math.random()"-->
+                                                         <!--style="cursor: pointer;width:100%;border: 1px solid #d5d5d5;"-->
+                                                         <!--title="点击获取">-->
+												<!--</span>-->
+                                            <!--</label>-->
+                                            <!--<?php endif; ?>-->
+                                            <!--<?php endif; ?>-->
+
+                                            <!--<div class="clearfix">-->
+                                                <!--<label class="inline">-->
+                                                    <!--<input name="rememberme" type="checkbox" class="ace"/>-->
+                                                    <!--<span class="lbl"> 记住信息</span>-->
+                                                <!--</label>-->
+
+                                                <!--<button type="submit"-->
+                                                        <!--class="width-35 pull-right btn btn-sm btn-primary">-->
+                                                    <!--<i class="ace-icon fa fa-key"></i>-->
+                                                    <!--<span class="bigger-110">登录</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="space-4"></div>-->
+                                        <!--</fieldset>-->
+                                    <!--</form>-->
+                                <!--</div>&lt;!&ndash; /.widget-main &ndash;&gt;-->
+                            <!--</div>&lt;!&ndash; /.widget-body &ndash;&gt;-->
+                        <!--</div>&lt;!&ndash; /.login-box &ndash;&gt;-->
+                    <!--</div>&lt;!&ndash; /.position-relative &ndash;&gt;-->
+
+                <!--</div>-->
+            <!--</div>&lt;!&ndash; /.col &ndash;&gt;-->
+        <!--</div>&lt;!&ndash; /.row &ndash;&gt;-->
+    <!--</div>&lt;!&ndash; /.main-content &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.main-container &ndash;&gt;-->
+
+<!--&lt;!&ndash; 基本的js &ndash;&gt;-->
+<!--&lt;!&ndash;[if !IE]> &ndash;&gt;-->
+<!--<script src="/public/others/jquery.min-2.2.1.js"></script>-->
+<!--&lt;!&ndash; <![endif]&ndash;&gt;-->
+<!--&lt;!&ndash; 如果为IE,则引入jq1.12.1 &ndash;&gt;-->
+<!--&lt;!&ndash;[if IE]>-->
+<!--<script src="/public/others/jquery.min-1.12.1.js"></script>-->
+<!--<![endif]&ndash;&gt;-->
+<!--&lt;!&ndash; jquery.form、layer、yfcmf的js &ndash;&gt;-->
+<!--<script src="/public/others/bootstrap.min.js"></script>-->
+<!--<script src="/public/others/jquery.form.js"></script>-->
+<!--<script src="/public/layer/layer_zh-cn.js"></script>-->
+<!--<script src="/public/others/maxlength.js"></script>-->
+<!--<script src="/public/yfcmf/yfcmf.js"></script>-->
+<!--<script src="http://static.geetest.com/static/tools/gt.js"></script>-->
+<!--<script>-->
+    <!--var handler = function (captchaObj) {-->
+        <!--captchaObj.appendTo("#captcha");-->
+        <!--captchaObj.onSuccess(function () {-->
+            <!--//验证成功执行-->
+        <!--});-->
+        <!--captchaObj.onReady(function () {-->
+            <!--//加载完毕执行-->
+        <!--});-->
+    <!--};-->
+    <!--$.ajax({-->
+        <!--url: "<?php echo geetest_url(); ?>?t=" + (new Date()).getTime(),-->
+        <!--type: "get",-->
+        <!--dataType: "json",-->
+        <!--success: function (data) {-->
+            <!--initGeetest({-->
+                <!--gt: data.gt,-->
+                <!--challenge: data.challenge,-->
+                <!--product: "float",-->
+                <!--offline: !data.success-->
+            <!--}, handler);-->
+        <!--}-->
+    <!--});-->
+<!--</script>-->
+<!--&lt;!&ndash; 如果为触屏,则引入jquery.mobile &ndash;&gt;-->
+<!--<script type="text/javascript">-->
+    <!--if ('ontouchstart' in document.documentElement) document.write("<script src='/public/others/jquery.mobile.custom.min.js'>" + "<" + "/script>");-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
