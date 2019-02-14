@@ -91,6 +91,7 @@ class Park extends Base
         }
         //检测是否已存在改房间号
         $count = Db::name('ParkRoom')
+            ->where('phase', 'eq', \input('phase'))
             ->where('floor', 'eq', \input('floor'))
             ->where('room_number', 'eq', \input('room_number'))
             ->count();
