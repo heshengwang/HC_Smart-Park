@@ -25,10 +25,11 @@ class Index20 extends Common
         $model = new ParkRoom();
         switch ($floor) {
             case 1:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 9)
                     ->where('floor', $floor)
                     ->select();
+
                 $return['svg'] = <<<EFO
                 
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -550,7 +551,7 @@ EFO;
                 return \show(1, 'OK', $return, 200);
                 break;
             case 2:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 9)
                     ->where('floor', $floor)
                     ->select();
@@ -1109,7 +1110,7 @@ EFO;
                 return \show(1, 'OK', $return, 200);
                 break;
             case 3:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 9)
                     ->where('floor', $floor)
                     ->select();
@@ -2104,7 +2105,7 @@ EFO;
                 return \show(1, 'OK', $return, 200);
                 break;
             default:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 9)
                     ->where('floor', $floor)
                     ->select();

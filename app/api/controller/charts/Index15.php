@@ -25,7 +25,7 @@ class Index15 extends Common
         $model = new ParkRoom();
         switch ($floor) {
             case 1:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 18)
                     ->where('floor', $floor)
                     ->select();

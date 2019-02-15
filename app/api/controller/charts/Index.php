@@ -20,8 +20,10 @@ use think\Db;
  */
 class Index extends Common
 {
+
     /**
      * @return mixed
+     * @throws \think\Exception
      * 首页房源饼状图数据
      */
     public function room_status()
@@ -47,6 +49,7 @@ class Index extends Common
 
     /**
      * @return array
+     * @throws \think\Exception
      * 每月出租房源趋势图
      */
     public function room_month_status()
@@ -65,9 +68,11 @@ class Index extends Common
         return ['data' => $data];
     }
 
+
     /**
      * @return array
-     *每月企业入驻数据
+     * @throws \think\Exception
+     * 每月企业入驻数据
      */
     public function enterprise_entry_month()
     {
@@ -83,6 +88,7 @@ class Index extends Common
 
     /**
      * @return array
+     * @throws \think\Exception
      * 每个月注册用户数量
      */
     public function user_month()
@@ -101,6 +107,7 @@ class Index extends Common
 
     /**
      * @return array
+     * @throws \think\Exception
      * 海创二七大楼每层入驻情况(5~21层)
      */
     public function one_floor_entry()
@@ -1828,18 +1835,19 @@ EFO;
      */
     public function room_info()
     {
+        $phase_id = \input('phase_id', 2);
         $room_id = \input('room_id', 501);
         $data = Db::name('ParkRoom pr')
             ->join('EnterpriseList el', 'pr.enterprise_id=el.id', 'LEFT')
-            ->where('phase', 2)
+            ->where('phase', 'eq', $phase_id)
             ->where('room_number', $room_id)
             ->field('phase,floor,room_number,area,enterprise_id')
             ->select();
-        foreach ($data as $k=>$v) {
-            $data[$k]['phase']='海创空间大厦二期';
+        foreach ($data as $k => $v) {
+            $data[$k]['phase'] = getBuildingNameById($phase_id);
             if (!empty($v['enterprise_id'])) {
                 $enterprise_name = Db::name('EnterpriseList')->where('id', $v['enterprise_id'])->value('enterprise_list_name');
-                $data[$k]['enterprise_id']=$enterprise_name;
+                $data[$k]['enterprise_id'] = $enterprise_name;
             }
         }
         if (empty($data)) {

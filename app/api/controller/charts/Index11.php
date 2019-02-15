@@ -25,7 +25,7 @@ class Index11 extends Common
         $model = new ParkRoom();
         switch ($floor) {
             case 1:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 13)
                     ->where('floor', $floor)
                     ->select();
@@ -157,7 +157,7 @@ EFO;
                 break;
 
             case 2:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 13)
                     ->where('floor', $floor)
                     ->select();
@@ -274,7 +274,7 @@ EFO;
                 break;
 
             case 3:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 13)
                     ->where('floor', $floor)
                     ->select();
@@ -403,7 +403,7 @@ EFO;
                 break;
 
             case 4:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 13)
                     ->where('floor', $floor)
                     ->select();
@@ -514,7 +514,7 @@ EFO;
                 break;
 
             case 5:
-                $return = $model
+                $return[0] = $model
                     ->where('phase', 13)
                     ->where('floor', $floor)
                     ->select();
