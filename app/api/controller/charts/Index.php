@@ -1835,7 +1835,7 @@ EFO;
      */
     public function room_info()
     {
-        $phase_id = \input('phase_id', 2);
+        $phase_id = \input('phase', 2);
         $room_id = \input('room_id', 501);
         $data = Db::name('ParkRoom pr')
             ->join('EnterpriseList el', 'pr.enterprise_id=el.id', 'LEFT')
