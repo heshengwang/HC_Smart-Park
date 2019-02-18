@@ -57,6 +57,7 @@ class Enterprise extends Base
         $this->assign('enterprise_list', $enterprise_list);
         $this->assign('page', $show);
         $this->assign('val', $key);
+//        \halt($enterprise_list);
         if (request()->isAjax()) {
             return $this->fetch('ajax_enterprise_list');
         } else {
@@ -141,7 +142,10 @@ class Enterprise extends Base
             $enterprise_count = Db::name('EnterpriseList')->where('enterprise_list_name', \trim(\input('enterprise_list_name')))->count();
 
             //检查房间号是否有入驻
-            $room_count = Db::name('EnterpriseEntryInfo')->where('room', \trim(\input('room')))->count();
+            $room_count = Db::name('EnterpriseEntryInfo')
+                ->where('phase', 'eq', \input('phase'))
+                ->where('room', \trim(\input('room')))
+                ->count();
             if ($enterprise_count > 0) {
                 $this->error('该企业名已存在');
             }
@@ -671,7 +675,10 @@ class Enterprise extends Base
             'status' => 0,
             'enterprise_id' => ''
         ];
-        Db::name('ParkRoom')->where('room_number', 'in', $old_room_num)->setField($fields0);
+        Db::name('ParkRoom')
+            ->where('phase', 'eq', $data['phase'])
+            ->where('room_number', 'in', $old_room_num)
+            ->setField($fields0);
 
         $sql_data1 = [
             'enterprise_list_name' => \input('enterprise_list_name', ''),
