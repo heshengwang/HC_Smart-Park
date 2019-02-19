@@ -33,7 +33,7 @@ class Index9 extends Common
         $model = new ParkRoom();
         switch ($floor) {
             case 1:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 31)
                     ->where('floor', $floor)
                     ->select();
@@ -327,7 +327,7 @@ EFO;
                 break;
 
             case 2:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 31)
                     ->where('floor', $floor)
                     ->select();
@@ -587,7 +587,7 @@ EFO;
                 break;
 
             case 3:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 31)
                     ->where('floor', $floor)
                     ->select();

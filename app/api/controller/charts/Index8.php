@@ -33,7 +33,7 @@ class Index8 extends Common
         $model = new ParkRoom();
         switch ($floor) {
             case 1:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 33)
                     ->where('floor', $floor)
                     ->select();
@@ -256,7 +256,7 @@ EFO;
                 break;
 
             case 2:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 33)
                     ->where('floor', $floor)
                     ->select();
@@ -339,7 +339,7 @@ EFO;
                 break;
 
             case 3:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 33)
                     ->where('floor', $floor)
                     ->select();
@@ -422,7 +422,7 @@ EFO;
                 break;
 
             case 4:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 33)
                     ->where('floor', $floor)
                     ->select();
@@ -504,7 +504,7 @@ EFO;
                 break;
 
             case 5:
-                $return[0] = $model
+                $return = $model
                     ->where('phase', 33)
                     ->where('floor', $floor)
                     ->select();
