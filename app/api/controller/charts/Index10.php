@@ -35,6 +35,7 @@ class Index10 extends Common
                 $return = $model
                     ->where('phase', 12)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="-100 0 1680 1100" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -160,6 +161,7 @@ EFO;
                 $return = $model
                     ->where('phase', 12)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="-100 0 1680 1100" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -300,6 +302,7 @@ EFO;
                 $return = $model
                     ->where('phase', 12)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="-100 0 1680 1100" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -459,6 +462,7 @@ EFO;
                 $return = $model
                     ->where('phase', 12)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="-100 0 1680 1100" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -570,6 +574,7 @@ EFO;
                 $return = $model
                     ->where('phase', 12)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="-100 0 1680 1100" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">

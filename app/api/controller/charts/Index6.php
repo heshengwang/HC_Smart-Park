@@ -36,6 +36,7 @@ class Index6 extends Common
                 $return[0] = $model
                     ->where('phase', 'eq', 30)
                     ->where('floor', 'eq', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="0 50 1500 1000" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">

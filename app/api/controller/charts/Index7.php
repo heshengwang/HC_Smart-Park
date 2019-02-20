@@ -36,6 +36,7 @@ class Index7 extends Common
                 $return = $model
                     ->where('phase', 'eq',32)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="0 50 1500 1000" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -232,6 +233,7 @@ EFO;
                 $return = $model
                     ->where('phase', 32)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="0 50 1500 1000" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -308,6 +310,7 @@ EFO;
                 $return = $model
                     ->where('phase', 32)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="0 50 1500 1000" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -384,6 +387,7 @@ EFO;
                 $return = $model
                     ->where('phase', 32)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="0 50 1500 1000" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -459,6 +463,7 @@ EFO;
                 $return = $model
                     ->where('phase', 32)
                     ->where('floor', $floor)
+                    ->order('room_number ase')
                     ->select();
                 $return['svg'] = <<<EFO
 <svg viewBox="0 50 1500 1000" width="650" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
