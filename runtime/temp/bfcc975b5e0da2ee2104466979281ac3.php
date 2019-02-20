@@ -295,7 +295,7 @@
 
                 <select name="floor" id="floor" class="ajax_change">
                     <option value="">按楼层</option>
-                    <?php $__FOR_START_1179673262__=1;$__FOR_END_1179673262__=24;for($i=$__FOR_START_1179673262__;$i < $__FOR_END_1179673262__;$i+=1){ ?>
+                    <?php $__FOR_START_1689000112__=1;$__FOR_END_1689000112__=24;for($i=$__FOR_START_1689000112__;$i < $__FOR_END_1689000112__;$i+=1){ ?>
                     <option value=<?php echo $i; ?> {if condition="$floor eq $i" }selected="selected"><?php echo $i; ?>层</option>
                     <?php } ?>
                 </select>

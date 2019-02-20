@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:58:"/www/wwwroot/www.hacyy.com/app/admin/view/index/index.html";i:1547541821;s:58:"/www/wwwroot/www.hacyy.com/app/admin/view/public/base.html";i:1540776139;s:60:"/www/wwwroot/www.hacyy.com/app/admin/view/public/header.html";i:1541036748;s:62:"/www/wwwroot/www.hacyy.com/app/admin/view/public/left_nav.html";i:1539759652;s:62:"/www/wwwroot/www.hacyy.com/app/admin/view/public/head_nav.html";i:1539575931;s:60:"/www/wwwroot/www.hacyy.com/app/admin/view/public/footer.html";i:1539660495;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:58:"/www/wwwroot/www.hacyy.com/app/admin/view/index/index.html";i:1550459221;s:58:"/www/wwwroot/www.hacyy.com/app/admin/view/public/base.html";i:1540776139;s:60:"/www/wwwroot/www.hacyy.com/app/admin/view/public/header.html";i:1541036748;s:62:"/www/wwwroot/www.hacyy.com/app/admin/view/public/left_nav.html";i:1539759652;s:62:"/www/wwwroot/www.hacyy.com/app/admin/view/public/head_nav.html";i:1539575931;s:60:"/www/wwwroot/www.hacyy.com/app/admin/view/public/footer.html";i:1539660495;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1454,8 +1454,8 @@
 
                 <ul class="inline-block index-room-right">
                     <li>项目名称：<span class="index-room-times">海创空间大厦二期</span></li>
-                    <li>企业入驻：<span class="index-room-enterprise">暂未有企业入驻</span></li>
-                    <li>地点：<span class="index-room-add">通源路海创空间大厦二期<span class="index-room-num">101</span>室</span>
+                    <li>企业入驻：<span class="index-room-enterprise">暂无企业入驻</span></li>
+                    <li>地点：<span><span class="index-room-add">海创空间大厦二期</span><span class="index-room-num">101</span>室</span>
                     </li>
                 </ul>
             </div>
@@ -1621,13 +1621,23 @@
                     type: 'get',
                     dataType: 'json',
                     success: function (data) {
+                        console.log(data)
 
-
-                        $('.index-room-num').html(data.data[0].room_number)
-                        $('.index-room-floor').html(data.data[0].floor)
-                        $('.index-room-squ').html(data.data[0].area)
-                        $('.index-room-enterprise').html(data.data[0].enterprise_id)
+                        //项目名称
+                        $('.index-room-times').html(data.data[0].phase);
+                        //门牌号
+                        $('.index-room-num').html(data.data[0].room_number);
+                        //楼层
+                        $('.index-room-floor').html(data.data[0].floor);
+                        //面积
+                        $('.index-room-squ').html(data.data[0].area);
+                        //企业入驻
+                        $('.index-room-enterprise').html(data.data[0].enterprise_id);
+                        //svg图
                         $('.index-room-plane')[0].innerHTML = data.data.svg;
+
+                        //设置企业地点
+                        $('.index-room-add').html(data.data[0].phase)
 
                         //当json中data数大于1时，（即data.data数组里房间的数量+svg）判断每层房间的租借情况
                         if (getJsonLength(data.data) > 2) {
@@ -1698,22 +1708,27 @@
         let curNum = numArr[proValue-1];
 
         for(let i = 0;i<curNum.length;i++){
-            $("#buildNumber").append(`<option value="${i+1}" data-index = "${curNum[i].dataIndex}" data-value="${curNum[i].dataValue}" data-Phase = "${curNum[i].dataPhase}">${curNum[i].name}</option>`)
+            $("#buildNumber").append(`<option value="${i+1}" data-name = "${curNum[i].name}" data-index = "${curNum[i].dataIndex}" data-value="${curNum[i].dataValue}" data-Phase = "${curNum[i].dataPhase}">${curNum[i].name}</option>`)
         }
 
 
 
     });
 
+    //楼宇改变时
     $("#buildNumber").change(function(){
 
         //取值
         var indexNum = $("#buildNumber option:selected").attr("data-index");
         var phaseNum = $("#buildNumber option:selected").attr("data-phase");
         var valueNum = $("#buildNumber option:selected").attr("data-value");
+        var nameValue = $("#buildNumber option:selected").attr("data-name");
 
-        //设置楼层号
+
+        //设置
         $(".index-room-floor").html("1");
+
+
         //排他显示楼层
         $(".container-box").children().eq(indexNum).show().siblings().hide();
 
@@ -1727,17 +1742,23 @@
             timer = setTimeout(function () {
 
                 $.ajax({
+
+                    //此api中不包含phase数据
                     url: '/api/charts.index'+valueNum+'/build_floor/floor/1',
                     type: 'get',
                     dataType: 'json',
                     success: function (data) {
                         //设置值
 
-                        $('.index-room-num').html(data.data[0].room_number)
-                        $('.index-room-floor').html(data.data[0].floor)
-                        $('.index-room-squ').html(data.data[0].area)
-                        $('.index-room-enterprise').html(data.data[0].enterprise_id)
-                        $('.index-room-plane')[0].innerHTML = data.data.svg
+                        $('.index-room-times').html(nameValue);
+                        $('.index-room-num').html(data.data[0].room_number);
+                        $('.index-room-floor').html(data.data[0].floor);
+                        $('.index-room-squ').html(data.data[0].area);
+                        $('.index-room-enterprise').html(data.data[0].enterprise_id);
+                        //设置企业地点
+                        $('.index-room-add').html(nameValue);
+
+                        $('.index-room-plane')[0].innerHTML = data.data.svg;
 
 
 
@@ -1791,7 +1812,6 @@
         })();
 
 
-
         //点击楼层显示平面和默认信息
         $('.index-bulid-list').on('click', '.index-floor', showPlane)
         //鼠标悬浮楼层显示平面和默认信息
@@ -1812,13 +1832,16 @@
                     success: function (data) {
                         //设置值
 
-                        $('.index-room-num').html(data.data[0].room_number)
-                        $('.index-room-floor').html(data.data[0].floor)
-                        $('.index-room-squ').html(data.data[0].area)
-                        $('.index-room-enterprise').html(data.data[0].enterprise_id)
-                        $('.index-room-plane')[0].innerHTML = data.data.svg
+                        //console.log(data);
 
-
+                        $('.index-room-times').html(data.data[0].phase);
+                        $('.index-room-num').html(data.data[0].room_number);
+                        $('.index-room-floor').html(data.data[0].floor);
+                        $('.index-room-squ').html(data.data[0].area);
+                        $('.index-room-enterprise').html(data.data[0].enterprise_id);
+                        $('.index-room-plane')[0].innerHTML = data.data.svg;
+                        //设置企业地点
+                        $('.index-room-add').html(data.data[0].phase);
 
 
 
@@ -1873,10 +1896,9 @@
 
 
         //鼠标悬浮房间改变状态
-        $('.index-room-plane').on('mouseenter', '.room', showRoom)
+        $('.index-room-plane').on('mouseenter', '.room', showRoom);
         //点击房间改变状态
-        $('.index-room-plane').on('click', '.room', showRoom)
-
+        $('.index-room-plane').on('click', '.room', showRoom);
 
     })
 
@@ -1898,11 +1920,15 @@
             dataType: 'json',
             success: function (data) {
 
-                $('.index-room-num').html(data.data[0].room_number)
-                $('.index-room-floor').html(data.data[0].floor)
-                $('.index-room-squ').html(data.data[0].area)
-                $('.index-room-times').html(data.data[0].phase)
-                $('.index-room-enterprise').html(data.data[0].enterprise_id)
+                $('.index-room-times').html(data.data[0].phase);
+                $('.index-room-num').html(data.data[0].room_number);
+                $('.index-room-floor').html(data.data[0].floor);
+                $('.index-room-squ').html(data.data[0].area);
+                $('.index-room-enterprise').html(data.data[0].enterprise_id);
+
+                //设置企业地点
+                $('.index-room-add').html(data.data[0].phase);
+
                 $('.index-room-plane')[0].innerHTML = data.data.svg;
 
                 if (getJsonLength(data.data) > 0 ) {
@@ -1960,16 +1986,21 @@
             success: function (data) {
 
 
+                //console.log(data)
+
+
                 //设置房间号
-                $('.index-room-num').html(data.data[0].room_number)
+                $('.index-room-num').html(data.data[0].room_number);
                 //设置楼层
-                $('.index-room-floor').html(data.data[0].floor)
+                $('.index-room-floor').html(data.data[0].floor);
                 //设置面积
-                $('.index-room-squ').html(data.data[0].area)
+                $('.index-room-squ').html(data.data[0].area);
                 //设置项目名称
-                $('.index-room-times').html(data.data[0].phase)
-                ////设置企业入驻
-                $('.index-room-enterprise').html(data.data[0].enterprise_id)
+                $('.index-room-times').html(data.data[0].phase);
+                //设置企业入驻
+                $('.index-room-enterprise').html(data.data[0].enterprise_id);
+                //设置企业地点
+                 $('.index-room-add').html(data.data[0].phase)
             }
         })
     }

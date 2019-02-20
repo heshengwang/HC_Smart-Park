@@ -4,13 +4,13 @@ return [
     // 数据库类型
     'type'           => 'mysql',
     // 服务器地址
-    'hostname'       => '127.0.0.1',
+    'hostname'       => '47.101.167.237',
     // 数据库名
-    'database'       => '',
+    'database'       => 'hckj',
     // 用户名
-    'username'       => 'root',
+    'username'       => 'hckj',
     // 密码
-    'password'       => 'root',
+    'password'       => 'fwegerhgergzsgzsga',
     // 端口
     'hostport'       => '3306',
     // 连接dsn
