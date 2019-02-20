@@ -29,7 +29,7 @@ class Enterprise extends Base
      */
     public function index()
     {
-        return "企业总览";
+
     }
 
     /**
@@ -803,8 +803,12 @@ class Enterprise extends Base
                 ->where('enterprise_id', 'eq', $id)
                 ->value('room');
             $room_id = \explode('|', $room_id);
-            //删除企业后,将房源状态改为未租,其他字段可以不更改,因为不影响查找,其他企业入驻也会覆盖原来数据
-            Db::name('ParkRoom')->where('room_number', 'in', $room_id)->setField('status', 0);
+            //删除企业后,将房源状态改为未租,删除入驻企业id,其他字段可以不更改,因为不影响查找,其他企业入驻也会覆盖原来数据
+            $fields = [
+                'status' => 0,
+                'enterprise_id' => '',
+            ];
+            Db::name('ParkRoom')->where('room_number', 'in', $room_id)->setField($fields);
 
             //删除企业一并删除其他表中的记录,账单记录先保留
             Db::name('EnterpriseBank')->where('enterprise_id', 'eq', $id)->delete();
