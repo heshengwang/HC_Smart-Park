@@ -2468,15 +2468,16 @@ EFO;
   <path class="room" id="room_07" d="m946,348l90,0l0,233l-90,0l0,-233z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
   <path class="room" id="room_08" d="m64,59l118,0l0,217l-118,0l0,-217z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
   <path class="room" id="room_09" d="m839,353l93,0l0,228l-93,0l0,-228z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
-  <path class="room" id="room_10" d="m629,347l195,0l0,231l-195,0l0,-231z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
-  <path class="room" id="room_11" d="m517,347l95.00001,0l0,233l-95.00001,0l0,-233z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
-  <path class="room" id="room_12" d="m410,344l95.00001,0l0,235l-95.00001,0l0,-235z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
-  <path class="room" id="room_13" d="m303,344l96,0l0,239l-96,0l0,-239z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
-  <path class="room" id="room_15" d="m196,347l93,0l0,235l-93,0l0,-235z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
-  <path class="room" id="room_17" d="m64,348l117,0l0,230l-117,0l0,-230z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
+  <path class="room" id="room_11" d="m629,347l195,0l0,231l-195,0l0,-231z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
+  <path class="room" id="room_13" d="m517,347l95.00001,0l0,233l-95.00001,0l0,-233z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
+  <path class="room" id="room_15" d="m410,344l95.00001,0l0,235l-95.00001,0l0,-235z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
+  <path class="room" id="room_17" d="m303,344l96,0l0,239l-96,0l0,-239z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
+  <path class="room" id="room_19" d="m196,347l93,0l0,235l-93,0l0,-235z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
+  <path class="room" id="room_21" d="m64,348l117,0l0,230l-117,0l0,-230z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#cccccc"/>
  </g>
 </svg>
 EFO;
+
                 return \show(1, 'OK', $return, 200);
                 break;
         }
