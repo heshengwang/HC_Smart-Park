@@ -4,17 +4,16 @@
     <div class="row maintop">
         <div class="col-xs-12 col-sm-2">
 
-            <a href="{:url('api/excel.index/roomList')}">
-                <button class="btn btn-sm btn-danger">
-                    <i class="ace-icon fa fa-bolt bigger-110"></i>
-                    导出房源
-                </button>
-            </a>
+            <button class="btn btn-sm btn-danger" id="export-room-list">
+                <i class="ace-icon fa fa-bolt bigger-110"></i>
+                导出房源
+            </button>
+
         </div>
         <form name="room_list_sea" class="form-search" id="list-filter" method="post"
               action="{:url('admin/Park/room_list')}">
             <div class="col-xs-10 col-sm-5  margintop5">
-                <select name="status" class="ajax_change">
+                <select name="status" class="ajax_change" id="room-status">
                     <option value="">按租赁状态</option>
                     <option value="1" {if condition="$status eq '1'" }selected="selected" {
                     /if}>已租</option>
@@ -28,7 +27,7 @@
                     /if} >自留</option>
                 </select>
 
-                <select name="phase" class="ajax_change">
+                <select name="phase" class="ajax_change" id="room-phase">
                     <option value="">按楼宇</option>
                     {foreach $building as $b}
                     <option value="{$b.id}" {if $phase eq $b.id}selected{
@@ -86,4 +85,30 @@
         </div>
     </div>
 </div><!-- /.page-content -->
+<script>
+    $(document).ready(function () {
+        $("#export-room-list").click(function (event) {
+            var roomStatus = $("#room-status").val();
+            var roomPhase = $("#room-phase").val();
+            var roomFloor = $("#floor").val();
+
+            action = "{:url('api/excel.index/roomList')}"
+            form = $("<form></form>")
+            form.attr('action', action)
+            form.attr('method', 'post')
+            input1 = $("<input type='text' name='status' />")
+            input1.attr('value', roomStatus)
+            input2 = $("<input type='text' name='phase' />")
+            input2.attr('value', roomPhase)
+            input3 = $("<input type='text' name='floor' />")
+            input3.attr('value', roomFloor)
+            form.append(input1)
+            form.append(input2)
+            form.append(input3)
+            form.appendTo("body")
+            form.css('display', 'none')
+            form.submit()
+        })
+    });
+</script>
 {/block}

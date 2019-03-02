@@ -79,20 +79,47 @@ class Index extends Controller
      */
     public function roomList()
     {
-        $model = new ParkRoom();
-        $list = $model->getParkRoomList();
+        //按照租赁状态
+        $status = input('status', '');
+        //按照楼层
+        $floor = \input('floor', '');
+        //按照期数
+        $phase = \input('phase', '');
+
+        $where = array();
+        if ($status !== '') {
+            $where['status'] = $status;
+        }
+        if ($floor !== '') {
+            $where['floor'] = $floor;
+        }
+        if ($phase !== '') {
+            $where['phase'] = $phase;
+        }
+        $list = Db::name('ParkRoom')
+            ->where($where)
+            ->select();
         $data = [];
+        $phaseArr = Db::name('ParkBuilding')->column('id,name');
+        $decorationArr = [1 => '毛坯', 2 => '简装'];
+        $statusArr = [
+            0 => '未租',
+            1 => '已租',
+            2 => '已售',
+            3 => '已定',
+            4 => '自留'
+        ];
         foreach ($list as $k => $v) {
-            $data[$k]['园区'] = $v['phase'];
+            $data[$k]['园区'] = $phaseArr[$v['phase']];
             $data[$k]['楼层'] = $v['floor'];
             $data[$k]['房间号'] = $v['room_number'];
             $data[$k]['面积'] = $v['area'];
             $data[$k]['房租'] = $v['price'];
             $data[$k]['物业费'] = $v['property'];
             $data[$k]['空调费'] = $v['aircon'];
-            $data[$k]['装修'] = $v['decoration'];
-            $data[$k]['入驻企业'] = $v['enterprise_list']['enterprise_list_name'];
-            $data[$k]['状态'] = $v['status'];
+            $data[$k]['装修'] = $decorationArr[$v['decoration']];
+            $data[$k]['入驻企业'] = \getEnterpriseNameById($v['enterprise_id']);
+            $data[$k]['状态'] = $statusArr[$v['status']];
         }
 
         $name = '房源列表';
