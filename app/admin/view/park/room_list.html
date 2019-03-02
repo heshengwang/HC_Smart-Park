@@ -29,7 +29,7 @@
                 </select>
 
                 <select name="phase" class="ajax_change">
-                    <option value="">按园区</option>
+                    <option value="">按楼宇</option>
                     {foreach $building as $b}
                     <option value="{$b.id}" {if $phase eq $b.id}selected{
                     /if}>{$b.name}</option>
