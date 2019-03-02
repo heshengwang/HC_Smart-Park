@@ -8,11 +8,12 @@
                   action="{:url('admin/Park/meeting_room_runadd')}" enctype="multipart/form-data">
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 海创： </label>
+                    <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 所在楼宇： </label>
                     <div class="col-sm-10">
-                        <select name="phase" id="phase" class="col-sm-2 selector" required>
-                            <option value="1">一期</option>
-                            <option value="2">二期</option>
+                        <select name="phase" id="phase" class="col-sm-4 selector" required>
+                            {foreach $build_list as $bl}
+                            <option value="{$bl.id}">{$bl.name}</option>
+                            {/foreach}
                         </select>
                         <span class="help-inline col-xs-12 col-sm-2">*
 												<span class="middle">请选择房源期数</span>

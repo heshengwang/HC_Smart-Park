@@ -409,7 +409,13 @@ class Park extends Base
     public function meeting_room_add()
     {
         $equipment = Db::name('MeetingEquipment')->select();
-        $this->assign('equipment', $equipment);
+        $buildList = Db::name('ParkBuilding')->select();
+        $this->assign(
+            [
+                'equipment' => $equipment,
+                'build_list' => $buildList
+            ]
+        );
         return $this->fetch();
     }
 
