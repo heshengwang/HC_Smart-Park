@@ -384,6 +384,7 @@ class Park extends Base
         if ($phase !== '') {
             $where['phase'] = $phase;
         }
+        $buildList = Db::name('ParkBuilding')->select();
         $model = new ParkMeetingRoom();
         $list = $model
             ->where($where)
@@ -395,6 +396,7 @@ class Park extends Base
         $this->assign('phase', $phase);
         $this->assign('list', $list);
         $this->assign('page', $show);
+        $this->assign('build_list', $buildList);
         if (request()->isAjax()) {
             return $this->fetch('ajax_meeting_room_list');
         } else {
