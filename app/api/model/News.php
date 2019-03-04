@@ -70,9 +70,9 @@ class News extends Model
      */
     public function getNewsAutoAttr($news_auto)
     {
-        return $news_auto = \model('Admin')
-            ->where('admin_id', $news_auto)
-            ->value('admin_username');
+        return $news_auto = \model('MemberList')
+            ->where('member_list_id', $news_auto)
+            ->value('member_list_username');
     }
 
     /**
@@ -85,7 +85,7 @@ class News extends Model
         if (!empty($news_img)) {
             return \get_app_imgurl($news_img);
         } else {
-            return 'http://www.hacyy.com/public/img/nonews.png';
+            return '';
         }
     }
 
@@ -135,7 +135,7 @@ class News extends Model
         ];
         return $this
             ->where($where)
-            ->field('n_id,news_title,news_img,news_hits,news_time,news_scontent')
+            ->field('n_id,news_title,news_img,news_hits,news_time,news_auto,news_scontent')
             ->order('news_time desc')
             ->limit(5)
             ->select();
