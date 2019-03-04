@@ -9,6 +9,7 @@
 namespace app\api\model;
 
 
+use think\Db;
 use think\Model;
 
 /**
@@ -131,29 +132,43 @@ class EnterpriseList extends Model
         }
     }
 
+
     /**
-     * @param $page
-     * @param $key
-     * @return false|\PDOStatement|string|\think\Collection|\think\response\Json
+     * @param string $page  页码
+     * @param string $key   关键字
+     * @param string $phase 楼宇id
+     * @return false|\PDOStatement|string|\think\Collection
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * 企业列表带搜索
+     * 企业列表
      */
-    public function getEnterpriseList($page, $key = '')
+    public function getEnterpriseList($page = '', $key = '', $phase = '')
     {
+        if (!empty($phase)) {
+            $map['phase'] = $phase;
+        } else {
+            $map = [];
+        }
+
         $where = [
             'enterprise_list_name' => ['like', '%' . $key . '%'],
             'enterprise_list_open' => 1,
-            'is_delete' => 0
+            'is_delete' => 0,
         ];
-        return $this
-            ::with('EntryInfo')
+        $e_ids = Db::name('EnterpriseEntryInfo')
+            ->where($map)
+            ->column('enterprise_id');
+        $thisModel = new EnterpriseList();
+        $list = $thisModel
+            ->with('EntryInfo')
+//            ->with(['EntryInfo'=>function($query){$query->field('room');}])
+            ->field('id,enterprise_list_name,enterprise_list_logo')
             ->where($where)
             ->order('enterprise_list_addtime')
-            ->page($page, '1000000')
-            ->select();
-        return \show('200', 'OK', $list);
+            ->page($page, 10000)
+            ->select($e_ids);
+        return $list;
     }
 
     /**
