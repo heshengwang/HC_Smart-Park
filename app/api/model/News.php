@@ -70,9 +70,10 @@ class News extends Model
      */
     public function getNewsAutoAttr($news_auto)
     {
-        return $news_auto = \model('MemberList')
+        /*return $news_auto = \model('MemberList')
             ->where('member_list_id', $news_auto)
-            ->value('member_list_username');
+            ->value('member_list_username');*/
+        return 'admin';
     }
 
     /**
