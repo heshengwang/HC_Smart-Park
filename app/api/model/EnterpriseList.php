@@ -163,7 +163,7 @@ class EnterpriseList extends Model
         $list = $thisModel
             ->with('EntryInfo')
 //            ->with(['EntryInfo'=>function($query){$query->field('room');}])
-            ->field('id,enterprise_list_name,enterprise_list_logo')
+//            ->field('id,enterprise_list_name,enterprise_list_logo,enterprise_list_code')
             ->where($where)
             ->order('enterprise_list_addtime')
             ->page($page, 10000)

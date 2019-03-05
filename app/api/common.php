@@ -99,6 +99,18 @@ function getEnterpriseBasicInfoByCode($code)
     return Db::name('EnterpriseList')->where('enterprise_list_code', 'eq', $code)->find();
 }
 
+function getEnterpriseAddressByEnterpriseId($e_id)
+{
+    $info = Db::name('EnterpriseEntryInfo')
+        ->where('enterprise_id', 'eq', $e_id)
+        ->field('phase,room')
+        ->find();
+    $phaseName = Db::name('ParkBuilding')
+        ->where('id', $info['phase'])
+        ->value('name');
+    $address = $phaseName . $info['room'];
+    return $address;
+}
 
 /**
  * XLS导出

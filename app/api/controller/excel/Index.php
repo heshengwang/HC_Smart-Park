@@ -35,17 +35,19 @@ class Index extends Controller
         $page = \input('page', '1', 'intval');
         //搜索关键字
         $key = \input('key', '');
+        $phase = \input('phase', '');
         $model = new EnterpriseList();
-        $list = $model->getEnterpriseList($page, $key);
+        $list = $model->getEnterpriseList($page, $key, $phase);
         $data = [];
         foreach ($list as $k => $v) {
             $data[$k]['企业ID'] = $v['id'];
             $data[$k]['企业名称'] = $v['enterprise_list_name'];
-            $data[$k]['房间号'] = $v['entry_info']['room'];
+            $data[$k]['公司地址'] = \getEnterpriseAddressByEnterpriseId($v['id']);
+//            $data[$k]['房间号'] = $v['entry_info']['room'];
             $data[$k]['邀请码'] = $v['enterprise_list_code'];
         }
         $name = '入驻企业列表';
-        $header = ['企业ID', '企业名称', '房间号', '邀请码'];
+        $header = ['企业ID', '企业名称', '公司地址', '邀请码'];
         \ExcelPull($name, $header, $data);
     }
 

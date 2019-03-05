@@ -23,11 +23,11 @@ class EnterpriseEntryInfo extends Model
      * @return string
      * 返回拼接好的公司地址
      */
-    public function getRoomAttr($room)
+    /*public function getRoomAttr($room)
     {
         $address = '淮安市通源路9号海创空间大厦' . $room . '室';
         return $address;
-    }
+    }*/
 
     /**
      * @param $time

@@ -33,7 +33,7 @@ class Index18 extends Common
                 $return['svg'] = <<<EFO
 <svg width="650" height="248" viewBox="0 0 1621 620" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
  <g class="layer">
-  <g id="svg_1" fill="#000000" transform="translate(0,723) scale(0.10000000149011612,-0.10000000149011612) ">
+  <g id="svg_1" fill="#000000" transform="translate(0.000000,723.000000) scale(0.100000,-0.100000)">
    <path id="svg_2" d="m1530,3775l0,-1775l5895,0l5895,0l0,1775l0,1775l-5895,0l-5895,0l0,-1775zm7270,0l0,-1715l-3605,0l-3605,0l0,1715l0,1715l3605,0l3605,0l0,-1715zm4460,0l0,-1715l-2210,0l-2210,0l0,1715l0,1715l2210,0l2210,0l0,-1715z"/>
    <path id="svg_3" d="m4484,4289c-17,-7 -17,-8 -1,-9c46,-5 102,-2 95,5c-9,9 -74,12 -94,4z"/>
    <path id="svg_4" d="m4641,4293c-1,-6 -11,-13 -23,-15c-17,-2 -24,-11 -26,-30c-3,-24 0,-28 22,-28c15,0 26,-7 29,-17c4,-17 5,-17 6,0c1,10 9,17 21,17c16,0 20,7 20,30c0,23 -5,30 -19,30c-11,0 -22,6 -24,13c-4,8 -6,9 -6,0zm-1,-43c0,-5 -9,-10 -20,-10c-11,0 -20,5 -20,10c0,6 9,10 20,10c11,0 20,-4 20,-10zm40,0c0,-5 -7,-10 -15,-10c-8,0 -15,5 -15,10c0,6 7,10 15,10c8,0 15,-4 15,-10z"/>
@@ -69,11 +69,13 @@ class Index18 extends Common
    <path id="svg_34" d="m10962,3858c-26,-26 -8,-83 24,-76c15,2 19,12 19,43c0,42 -19,57 -43,33zm33,-33c0,-16 -6,-30 -12,-32c-9,-3 -13,7 -13,32c0,25 4,35 13,33c6,-3 12,-17 12,-33z"/>
    <path id="svg_35" d="m11103,3848c1,-8 -10,-14 -25,-16c-24,-3 -28,-8 -27,-35l1,-32l8,30l8,30l2,-30l2,-30l8,30l7,30l5,-30l5,-30l2,28c0,15 6,27 11,27c6,0 10,9 10,20c0,11 -4,20 -10,20c-5,0 -9,-6 -7,-12z"/>
   </g>
-  <path class="room" id="room_01" d="m893,185l425,1l-1,324l-428,0l4,-325z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#e5e5e5"/>
-  <path class="room" id="room_02" d="m167,183l705,0l2,326c0,0 -709,2 -709,2c0,0 2,-328 2,-328z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#e5e5e5"/>
+  <path stroke="#000000" class="room" id="room_01" d="m1155,180l163,0l0,331l-163,0l0,-331z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#e5e5e5"/>
+  <path class="room" id="room_02" d="m797,176.99998l349,0l0,335l-349,0l0,-335z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#e5e5e5"/>
+  <path class="room" id="room_03" d="m164,178l624,0l0,334l-624,0l0,-334z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#e5e5e5"/>
  </g>
 </svg>
 EFO;
+
                 return \show(1, 'OK', $return, 200);
                 break;
 
