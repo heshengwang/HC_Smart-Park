@@ -35,6 +35,9 @@ class Enterprise extends Common
         $key = \input('key', '');
         $phase = \input('phase', '');
         $list = \model('EnterpriseList')->getEnterpriseList($page, $key, $phase);
+        foreach ($list as $k => $v) {
+            $list[$k]['entry_info']['room'] = \getEnterpriseAddressByEnterpriseId($v['id']);
+        }
         return \show(1, 'OK', $list, 200);
     }
 
