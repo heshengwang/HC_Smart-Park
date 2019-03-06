@@ -13,11 +13,11 @@ return [
     'token_expires_time' => '2592000',
     //APP版本信息
     'app_version' => [
-        'version' => '1.0.8',
-        'publish_time' => '2018/12/04',
+        'version' => '1.0.9',
+        'publish_time' => '2019/03/06',
         'size' => '',
         'content' => '',
-        'download_url' => 'http://www.hacyy.com/public/apk/1.0.8_legu_signed_zipalign.apk',
+        'download_url' => 'http://www.hacyy.com/public/apk/1.0.9_legu_signed_zipalign.apk',
         'is_force' => '',
     ],
     //七牛云的上传地址
