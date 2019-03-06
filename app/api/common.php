@@ -99,6 +99,14 @@ function getEnterpriseBasicInfoByCode($code)
     return Db::name('EnterpriseList')->where('enterprise_list_code', 'eq', $code)->find();
 }
 
+/**
+ * @param $e_id
+ * @return string
+ * @throws \think\db\exception\DataNotFoundException
+ * @throws \think\db\exception\ModelNotFoundException
+ * @throws \think\exception\DbException
+ * 根据企业id获取企业所在楼宇+房间号
+ */
 function getEnterpriseAddressByEnterpriseId($e_id)
 {
     $info = Db::name('EnterpriseEntryInfo')
