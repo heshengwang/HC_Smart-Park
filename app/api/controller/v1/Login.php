@@ -24,12 +24,14 @@ use think\Db;
 class Login extends Common
 {
 
+
     /**
-     * @return ApiException|\think\response\Json
+     * @return \think\response\Json
+     * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * 登录操作
+     * App登录(2019年3月11日更新可用用户名登录+密码)
      */
     public function save()
     {
@@ -37,11 +39,11 @@ class Login extends Common
         $type = \input('type');     //登录方式
         $phone = \input('phone');
         //如果手机号不存在则说明没有注册
-        $count_phone = $db->where('member_list_tel', 'eq', $phone)->count();
+        $count_phone = $db->where('member_list_tel|member_list_username', 'eq', $phone)->count();
         if ($count_phone < 1){
-            return \show(0, '该手机号尚未注册','',201);
+            return \show(0, '账号不存在','',201);
         }else{
-            $user_info = $db->where('member_list_tel', 'eq', $phone)->field('member_list_id,member_list_salt,member_list_pwd')->find();
+            $user_info = $db->where('member_list_tel|member_list_username', 'eq', $phone)->field('member_list_id,member_list_salt,member_list_pwd')->find();
         }
         switch ($type) {
             case 1:
@@ -53,6 +55,7 @@ class Login extends Common
                     //登录成功执行
                     return $this->after_login($user_info['member_list_id']);
                 } else {
+                    \sleep(2);
                     return \show(0, '登录失败');
                 }
                 break;
@@ -61,6 +64,7 @@ class Login extends Common
                 $verify = \input('verify');
                 $verify_rst = \checksms($phone, 2, $verify);
                 if (!$verify_rst) {
+                    \sleep(2);
                     return \show(0, '验证码不正确');
                 } else {
                     //登录成功执行
