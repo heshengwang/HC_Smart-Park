@@ -68,9 +68,7 @@ class ServiceRepair extends Model
     public function getHandlerIdAttr($handler_id)
     {
         if (!empty($handler_id)) {
-            return Db::name('Admin')
-                ->where('admin_id', 'eq', $handler_id)
-                ->value('admin_username');
+            return getAdminUserNameById($handler_id);
         } else {
             return '';
         }
@@ -84,9 +82,7 @@ class ServiceRepair extends Model
     public function getUserIdAttr($uid)
     {
         if (!empty($uid)) {
-            return Db::name('MemberList')
-                ->where('member_list_id', 'eq', $uid)
-                ->value('member_list_username');
+            return \getUserNameById($uid);
         }
     }
 

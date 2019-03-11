@@ -134,8 +134,8 @@ class EnterpriseList extends Model
 
 
     /**
-     * @param string $page  页码
-     * @param string $key   关键字
+     * @param string $page 页码
+     * @param string $key 关键字
      * @param string $phase 楼宇id
      * @return false|\PDOStatement|string|\think\Collection
      * @throws \think\db\exception\DataNotFoundException
@@ -168,6 +168,26 @@ class EnterpriseList extends Model
             ->order('enterprise_list_addtime')
             ->page($page, 10000)
             ->select($e_ids);
+        return $list;
+    }
+
+    /**
+     * @param string $key
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * 根据名称搜索企业
+     */
+    public function searchEnterpriseByName($key = '')
+    {
+        $where = [
+            'enterprise_list_name' => ['like', '%' . $key . '%'],
+            'enterprise_list_open' => 1,
+            'is_delete' => 0,
+        ];
+        $enterpriseListModel = new EnterpriseList();
+        $list = $enterpriseListModel->where($where)->field('id,enterprise_list_name')->select();
         return $list;
     }
 

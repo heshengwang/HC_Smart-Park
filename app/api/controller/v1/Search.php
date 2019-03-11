@@ -10,24 +10,20 @@ namespace app\api\controller\v1;
 
 
 use app\api\controller\Common;
+use app\api\model\EnterpriseList;
 
 class Search extends Common
 {
     public function search()
     {
-        //1=社区,2=房源,3=活动
-        $type = \input('type',1);
+        //1=企业,2=房源,3=活动
+        $type = \input('type', 1);
         //搜索关键字
-        $key = \trim(\input('key',''));
+        $key = \trim(\input('key', ''));
         switch ($type) {
             case 1:
-                $map = [
-                    'news_columnid' => 4,
-                    'news_back' => 0,
-                    'news_open' => 1,
-                    'news_title' => ['like', '%' . $key . '%']
-                ];
-                $list = \model('News')->where($map)->select();
+                $elModel = new EnterpriseList();
+                $list = $elModel->searchEnterpriseByName($key);
                 break;
             case 2:
                 $map = [
