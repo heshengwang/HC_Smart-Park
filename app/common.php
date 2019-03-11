@@ -1728,7 +1728,7 @@ function data_signature($data = [])
  * @throws \think\exception\PDOException
  * * 发送短信验证码,阿里大鱼已废弃,此处为阿里云通信!!!
  */
-function sendsms($account, $type, $templateCode,$code)
+function sendsms($account, $type, $templateCode, $code)
 {
     $where['sms_type'] = $type;
     $where['sms_tel'] = $account;
@@ -1860,7 +1860,11 @@ function getCityByIp($ip)
 function getAdminUserNameById($adminid)
 {
     $name = Db::name('Admin')->where('admin_id', 'eq', $adminid)->value('admin_username');
-    return $name;
+    if (!empty($name)) {
+        return $name;
+    } else {
+        return '未知管理人员';
+    }
 }
 
 /**

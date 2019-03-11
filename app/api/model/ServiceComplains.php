@@ -49,7 +49,7 @@ class ServiceComplains extends Model
      */
     public function getHandlerIdAttr($handler_id)
     {
-        return $handler = \model('Admin')->where('admin_id', $handler_id)->value('admin_username');
+        return \getAdminUserNameById($handler_id);
     }
 
     /**
@@ -73,6 +73,48 @@ class ServiceComplains extends Model
     }
 
     /**
+     * @param $type
+     * @return string
+     * 类型中文字符
+     */
+    public function getTypeAttr($type)
+    {
+        if ($type == 1) {
+            return '投诉';
+        } else {
+            return '建议';
+        }
+    }
+
+    /**
+     * @param $uid
+     * @return mixed|string
+     * 返回用户名
+     */
+    public function getUserIdAttr($uid)
+    {
+        if (!empty($uid)) {
+            return \getUserNameById($uid);
+        } else {
+            return '未知人员';
+        }
+    }
+
+    /**
+     * @param $pic_url
+     * @return mixed|string
+     * 返回图片数组
+     */
+    public function getPicUrlAttr($pic_url)
+    {
+        if (!empty($pic_url)) {
+            return $pic_url = \unserialize($pic_url);
+        } else {
+            return '';
+        }
+    }
+
+    /**
      * @param $user_id
      * @param $page
      * @return false|\PDOStatement|string|\think\Collection
@@ -84,7 +126,7 @@ class ServiceComplains extends Model
     public function getMyComplainsList($user_id, $page)
     {
         return $this->where('user_id', 'eq', $user_id)
-            ->field('id,type,create_time,title,content,pic_url,status,handler_id,handler_time')
+            ->field('id,user_id,type,create_time,title,content,pic_url,status,handler_id,handler_time')
             ->order('create_time desc')
             ->page($page, 10)
             ->select();

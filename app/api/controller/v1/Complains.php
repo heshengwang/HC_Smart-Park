@@ -10,6 +10,7 @@ namespace app\api\controller\v1;
 
 
 use app\api\controller\AuthBase;
+use app\api\model\ServiceComplains;
 
 /**
  * Class Complains
@@ -18,9 +19,13 @@ use app\api\controller\AuthBase;
  */
 class Complains extends AuthBase
 {
+
     /**
      * @return \think\response\Json
-     * 我的投诉建议列表
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * 个人中心投诉列表
      */
     public function index()
     {
@@ -61,5 +66,12 @@ class Complains extends AuthBase
         } else {
             return \show(0, 'Fail', '', 200);
         }
+    }
+
+    public function admin_read()
+    {
+        $id = \input('id');
+        $info = ServiceComplains::get($id);
+        return \show(1, 'OK', $info, 200);
     }
 }
