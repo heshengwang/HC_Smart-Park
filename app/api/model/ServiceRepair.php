@@ -68,9 +68,25 @@ class ServiceRepair extends Model
     public function getHandlerIdAttr($handler_id)
     {
         if (!empty($handler_id)) {
-            return Db::name('Admin')->where('admin_id', 'eq', $handler_id)->value('admin_username');
+            return Db::name('Admin')
+                ->where('admin_id', 'eq', $handler_id)
+                ->value('admin_username');
         } else {
             return '';
+        }
+    }
+
+    /**
+     * @param $uid
+     * @return mixed
+     * 返回报修人的用户名
+     */
+    public function getUserIdAttr($uid)
+    {
+        if (!empty($uid)) {
+            return Db::name('MemberList')
+                ->where('member_list_id', 'eq', $uid)
+                ->value('member_list_username');
         }
     }
 

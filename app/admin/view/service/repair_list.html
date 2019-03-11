@@ -55,11 +55,17 @@
                                 <td height="28">
                                     <select name="status" id="status" onchange=changeStatus(this.value,"{$v.id}")>
                                         {foreach $status_list as $k=>$s}
-                                        <option value="{$k}" {if $v.status eq $s}selected{/if}>{$s}</option>
+                                        <option value="{$k}" {if $v.status eq $s}selected{
+                                        /if}>{$s}</option>
                                         {/foreach}
                                     </select>
                                 </td>
                                 <td>
+                                    <a class="blue" href="{:url('api/v1.repair/admin_read',array('id'=>$v['id']))}"
+                                       data-toggle="tooltip" title="查看详情">
+                                        <i class="ace-icon fa  bigger-130 iconfont icon-chakan"></i>
+                                    </a>
+
                                     <div class="action-buttons">
                                         <a class="blue confirm-rst-url-btn" data-info="确定删除吗？"
                                            href="{:url('admin/Service/repair_delete',array('id'=>$v['id'],'p'=>input('p',1)))}"
@@ -72,8 +78,7 @@
                             {/foreach}
                             <tr>
                                 <td align="left">
-                                    <button id="btnsubmit" class="btn btn-white btn-yellow btn-sm">删</button>
-                                     
+                                    <button id="btnsubmit" class="btn btn-white btn-yellow btn-sm">删</button> 
                                 </td>
                                 <td colspan="9" align="right">{$page}</td>
                             </tr>
@@ -92,21 +97,21 @@
     function changeStatus(status, listId) {
         $.ajax({
             type: 'POST',
-            url:"{:url('admin/Service/repair_handle')}",
-            async : true,
-            data:{
-                status:status,
-                id : listId,
+            url: "{:url('admin/Service/repair_handle')}",
+            async: true,
+            data: {
+                status: status,
+                id: listId,
             },
             dataType: 'json',
-            success:function (data) {
-                if (data.code==1){
+            success: function (data) {
+                if (data.code == 1) {
                     layer.msg('操作成功');
-                }else{
+                } else {
                     layer.msg('操作失败');
                 }
             },
-            error:function () {
+            error: function () {
                 layer.msg('程序异常!');
             }
         });

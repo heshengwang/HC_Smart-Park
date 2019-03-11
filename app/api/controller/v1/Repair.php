@@ -104,6 +104,18 @@ class Repair extends AuthBase
     }
 
     /**
+     * @return \think\response\Json
+     * @throws \think\exception\DbException
+     * 用于管理后台查看的
+     */
+    public function admin_read()
+    {
+        $id = \input('id');
+        $info = ServiceRepair::get($id);
+        return \show(1, 'OK', $info, 200);
+    }
+
+    /**
      * @return ApiException|\think\response\Json
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
