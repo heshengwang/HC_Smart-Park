@@ -34,14 +34,19 @@ class Enterprise extends Base
 
     /**
      *企业列表
+     * 添加按照楼宇筛选
      */
     public function enterprise_list()
     {
         $key = input('key');
-        $opentype_check = input('opentype_check', '');
+
+        //按照期数
+        $phase = \input('phase', '');
+
         $where = array();
-        if ($opentype_check !== '') {
-            $where['enterprise_list_open'] = $opentype_check;
+
+        if ($phase !== '') {
+            $where['eei.phase'] = $phase;
         }
 
         $enterprise_list = \db('EnterpriseList el')
@@ -53,11 +58,14 @@ class Enterprise extends Base
             ->paginate(config('paginate.list_rows'), false, ['query' => get_query()]);
         $show = $enterprise_list->render();
         $show = preg_replace("(<a[^>]*page[=|/](\d+).+?>(.+?)<\/a>)", "<a href='javascript:ajax_page($1);'>$2</a>", $show);
-        $this->assign('opentype_check', $opentype_check);
+        $this->assign('phase', $phase);
         $this->assign('enterprise_list', $enterprise_list);
         $this->assign('page', $show);
         $this->assign('val', $key);
-//        \halt($enterprise_list);
+        $buildList = Db::name('ParkBuilding')
+            ->where('status', 'eq', 1)
+            ->select();
+        $this->assign('builds', $buildList);
         if (request()->isAjax()) {
             return $this->fetch('ajax_enterprise_list');
         } else {
