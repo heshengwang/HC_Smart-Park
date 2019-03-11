@@ -64,7 +64,7 @@ class Financial extends Base
             ->join('EnterpriseList el', 'ebl.enterprise_id=el.id', 'LEFT')
             ->where('el.id', 'neq', '')
             ->where($map)
-            ->field('ebl.id,el.enterprise_list_name,ebl.rent_amount,ebl.property_amount,ebl.aircon_amount,ebl.discounted_amount,ebl.amount,ebl.fee_handler,ebl.invoice_handler,eei.margin,eei.signed_day,eei.signer,ebl.is_notify,ebl.status')
+            ->field('ebl.id,ebl.enterprise_id,el.enterprise_list_name,ebl.rent_amount,ebl.property_amount,ebl.aircon_amount,ebl.discounted_amount,ebl.amount,ebl.fee_handler,ebl.invoice_handler,eei.margin,eei.signed_day,eei.signer,ebl.is_notify,ebl.status')
             ->order('bill_time')
             ->paginate(config('paginate.list_rows'));
 //        \halt($list);
