@@ -1,5 +1,22 @@
 {extend name="admin@public/base" /}
 {block name="main-content"}
+
+<style>
+    #dialog_large_image {
+        position: absolute;
+        z-index: 999;
+        left: 86px;
+        top: 198px;
+    }
+
+    #dialog_large_image1 {
+        position: absolute;
+        z-index: 999;
+        left: 140px;
+        bottom: 178px;
+    }
+</style>
+
 <div class="page-content">
     <div class="row maintop">
         <div class="col-xs-5 col-sm-3  margintop5">
@@ -10,18 +27,20 @@
                 </button>
             </a>
             <a href="{:url('api/excel.index/enterpriseList')}">
-                <button class="btn btn-sm btn-danger">
+                <button class="btn btn-sm btn-danger" id="export-enterprise-btn">
                     <i class="ace-icon fa fa-bolt bigger-110"></i>
                     导出企业
                 </button>
             </a>
         </div>
-        <form name="admin_list_sea" class="form-search" id="list-filter" method="post" action="{:url('admin/Enterprise/enterprise_list')}">
+        <form name="admin_list_sea" class="form-search" id="list-filter" method="post"
+              action="{:url('admin/Enterprise/enterprise_list')}">
             <div class="col-xs-10 col-sm-2 margintop5">
-                <select name="phase" class="ajax_change">
+                <select name="phase" class="ajax_change" id="phase">
                     <option value="">按楼宇选择</option>
                     {foreach $builds as $b}
-                    <option value="{$b.id}" {if condition="$phase eq $b.id"}selected="selected"{/if}>{$b.name}</option>
+                    <option value="{$b.id}" {if condition="$phase eq $b.id" }selected="selected" {
+                    /if}>{$b.name}</option>
                     {/foreach}
                 </select>
             </div>
@@ -30,7 +49,7 @@
 						<span class="input-group-addon">
 							<i class="ace-icon fa fa-check"></i>
 						</span>
-                    <input type="text" name="key" id="key" class="form-control" value="{$val}" placeholder="输入企业名称" />
+                    <input type="text" name="key" id="key" class="form-control" value="{$val}" placeholder="输入企业名称"/>
                     <span class="input-group-btn">
 							<button type="submit" class="btn btn-sm  btn-purple ajax-search-form">
 								<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
@@ -84,7 +103,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form class="form-horizontal ajaxForm2" name="member_group_runadd" method="post"
-          action="" style="display: contents" >
+          action="" style="display: contents">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,6 +113,8 @@
                     <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
 
+                <!--弹出图片-->
+                <div id="dialog_large_image"></div>
                 <table class="enterprise-modal">
                     <tr>
                         <td>企业名称</td>
@@ -261,6 +282,7 @@
                     </tr>
 
                 </table>
+                <div id="dialog_large_image1"></div>
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -272,19 +294,25 @@
 
 
     // 查看企业详情部分JS
-        $('#dynamic-table').on('click','#ajax-enterprise-chakan',function () {
+    $('#dynamic-table').on('click', '#ajax-enterprise-chakan', function () {
         var enterpriseNum = this.getAttribute("enterprise-id");
         $.ajax({
-            url:'http://www.hacyy.com/enterprise/' + enterpriseNum,
-            type:'get',
-            dataType:'json',
-            success:function(data){
+            url: 'http://www.hacyy.com/enterprise/' + enterpriseNum,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+
+                //重置放大图片
+                var min_image = '';
+                $('#dialog_large_image').html($(min_image).animate({height: '0', width: '0'}, 500));
+                $('#dialog_large_image1').html($(min_image).animate({height: '0', width: '0'}, 500));
+
                 var logo_path = data.data.enterprise_list_logo;
                 var license_path = data.data.enterprise_list_license_img;
                 $('.modal-title').text(data.data.enterprise_list_name)
                 $('.enterprise_list_name').text(data.data.enterprise_list_name)
-                $('.enterprise_list_logo').attr("src",logo_path)
-                $('.enterprise_list_license_img').attr("src",license_path)
+                $('.enterprise_list_logo').attr("src", logo_path)
+                $('.enterprise_list_license_img').attr("src", license_path)
                 $('.enterprise_list_credit_code').text(data.data.enterprise_list_credit_code)
                 $('.enterprise_list_legal_representative').text(data.data.enterprise_list_legal_representative)
                 $('.enterprise_list_legal_id_number').text(data.data.enterprise_list_legal_id_number)
@@ -323,13 +351,46 @@
                 $('.signed_day').text(data.data.entry_info.signed_day)
                 $('.pay_time').text(data.data.entry_info.pay_time)
 
+                //图片放大
+                $("img.enterprise_list_license_img").click(function () {
+                    var large_image = '<img src= ' + $(this).attr("src") + '></img>';
+                    $('#dialog_large_image').html($(large_image).animate({height: '90%', width: '90%'}, 500));
+                });
+                //上面营业执照缩小
+                $("#dialog_large_image").click(function () {
+                    var min_image = '';
+                    $('#dialog_large_image').html($(min_image).animate({height: '0', width: '0'}, 500));
+                });
+
+                //下面合同缩小
+                $("#dialog_large_image1").click(function () {
+                    var min_image = '';
+                    $('#dialog_large_image1').html($(min_image).animate({height: '0', width: '0'}, 500));
+                })
+
                 // 租赁合同
-                var arrImgs=data.data.entry_info.pic_many_img
-                var html_string='';
-                for(var i=0;i<arrImgs.length;i++){
-                    html_string+='<img src="'+arrImgs[i]+'" width="100%" />';
+                var arrImgs = data.data.entry_info.pic_many_img
+                var html_string = '';
+                for (var i = 0; i < arrImgs.length; i++) {
+                    html_string += '<img class="arrImgss" src="' + arrImgs[i] + '" width="25%" />';
+
                 }
                 $('.pic_many_img').html(html_string)
+
+                //获取合同的图片数组
+                var imgArrs = $('.arrImgss');
+
+                for (let i = 0; i < imgArrs.length; i++) {
+                    imgArrs[i].index = i;
+                    //console.log(imgArrs[i])
+                    imgArrs[i].onclick = function () {
+                        //console.log(this.index+1)
+                        var large_image = '<img src= ' + $(this).attr("src") + '></img>';
+                        $('#dialog_large_image1').html($(large_image).animate({height: '80%', width: '80%'}, 500));
+                    }
+                }
+
+
                 $('.signer').text(data.data.entry_info.signer)
                 $('.operator').text(data.data.entry_info.operator)
                 $('.drawer').text(data.data.entry_info.drawer)
@@ -339,9 +400,30 @@
     })
 
 
-
 </script>
 
+
+<script>
+    $(document).ready(function () {
+        $('#export-enterprise-btn').click(function (event) {
+
+
+            var phase = $('#phase').val();
+
+            var action = "{:url('api/excel.index/enterpriseList')}"
+            form = $("<form></form>")
+            form.attr('action', action)
+            form.attr('method', 'post')
+            var input1 = $("<input type='text' name='phaseId' />")
+            input1.attr('value', phase)
+            form.append(input1)
+            $(document.body).append(form);
+            form.css('display', 'none')
+            form.submit()
+            return false;
+        })
+    })
+</script>
 {/block}
 
 

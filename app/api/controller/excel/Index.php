@@ -35,7 +35,7 @@ class Index extends Controller
         $page = \input('page', '1', 'intval');
         //搜索关键字
         $key = \input('key', '');
-        $phase = \input('phase', '');
+        $phase = \input('phaseId', '');
         $model = new EnterpriseList();
         $list = $model->getEnterpriseList($page, $key, $phase);
         $data = [];
